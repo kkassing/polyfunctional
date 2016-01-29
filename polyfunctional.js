@@ -172,7 +172,7 @@ CardAnimatable.prototype.stop = function() {
 
 function CardDeck(wrapper) {
     this.wrapper = wrapper || document.createElement('div');
-    this.wrapper.classList.add('card-deck');
+    this.wrapper.classList.add('pf-card-deck');
 
     this.insertAtLeft    = true; // New cards are inserted on the left side
     this.cardLimit       = 16;   // Cards are closed to stay under this limit
@@ -187,7 +187,7 @@ function CardDeck(wrapper) {
 
     // Create an element to explicitly set the scrollable width
     this.reserve = document.createElement('div');
-    this.reserve.className = 'card-deck-reserve';
+    this.reserve.className = 'pf-card-deck-reserve';
     this.wrapper.appendChild(this.reserve);
 
     var obj = this;
@@ -250,7 +250,7 @@ CardDeck.prototype.setTopCard = function(card) {
 
 CardDeck.prototype.addButton = function(card, html, func) {
     var el = document.createElement('span');
-    el.className = 'card-button';
+    el.className = 'pf-card-button';
     el.innerHTML = html;
     el.addEventListener('click', function(e) {
         e.preventDefault();
@@ -287,12 +287,12 @@ CardDeck.prototype.add = function(args) {
         buttons:     [],
     };
 
-    card.root.className      = 'card-root';
-    card.sizer.className     = 'card-sizer';
-    card.box.className       = 'card-box';
-    card.titlebar.className  = 'card-titlebar';
-    card.content.classList.add('card-content');
-    card.titletext.className = 'card-titletext';
+    card.root.className      = 'pf-card-root';
+    card.sizer.className     = 'pf-card-sizer';
+    card.box.className       = 'pf-card-box';
+    card.titlebar.className  = 'pf-card-titlebar';
+    card.content.classList.add('pf-card-content');
+    card.titletext.className = 'pf-card-titletext';
 
     card.titletext.textContent = args.title || '';
     card.titlebar.appendChild(card.titletext);
@@ -309,7 +309,7 @@ CardDeck.prototype.add = function(args) {
     }
 
     var par = this;
-    this.addButton(card, 'X', function() {
+    this.addButton(card, '&#215;', function() {
         par.remove(card);
     });
 
