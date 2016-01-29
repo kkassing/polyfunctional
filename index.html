@@ -1,6 +1,19 @@
 <html>
 <head>
 <meta charset="utf-8">
+<style type="text/css">
+body {
+    margin: 0;
+    padding: 0;
+}
+#deck {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+</style>
 <link rel="stylesheet" type="text/css" href="polyfunctional.css" />
 <script type="text/javascript" src="polyfunctional.js"></script>
 <script type="text/javascript">
@@ -20,8 +33,8 @@ function init() {
 
 </script>
 </head>
-<body onload="init()" style="margin:0; padding:0;">
-<div id="deck" style="margin:0; width:100%; height:100%;"></div>
+<body onload="init()">
+<div id="deck"></div>
 </div>
 </body>
 </html>
