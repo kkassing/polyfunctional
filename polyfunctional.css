@@ -1,4 +1,4 @@
-.card-deck {
+.pf-pf-card-deck {
     position: relative;
     padding: 0px 0px 0px 0.2em;
     margin: 0px;
@@ -6,14 +6,14 @@
     min-height: 5em;
 }
 
-.card-deck-reserve {
+.pf-card-deck-reserve {
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
 }
 
-.card-root {
+.pf-card-root {
     position: absolute;
     top: 0.1em;
     bottom: 0.1em;
@@ -26,7 +26,7 @@
     align-items: stretch;
 }
 
-.card-box {
+.pf-card-box {
     flex-grow: 1;
 
     border: 1px solid #888;
@@ -37,7 +37,7 @@
     align-items: stretch;
 }
 
-.card-titlebar {
+.pf-card-titlebar {
     background: #d8d8e0;
     padding: 0.1em;
     min-height: 1.2em;
@@ -48,7 +48,7 @@
     font-size: 90%;
 }
 
-.card-titletext {
+.pf-card-titletext {
     font-family: helvetica, arial;
     display: inline-block;
     overflow: hidden;
@@ -56,26 +56,26 @@
     flex-grow: 1;
 }
 
-.card-button {
+.pf-card-button {
     font-weight: 100;
     color: #aaa;
     padding-left: 0.33em;
 }
 
-.card-toggled {
+.pf-card-toggled {
     color: #484;
 }
 
-.card-button:hover {
+.pf-card-button:hover {
     color: black;
 }
 
-.card-content {
+.pf-card-content {
     overflow: auto;
     flex-grow: 1;
 }
 
-.card-sizer {
+.pf-card-sizer {
     width: 0.3em;
     min-width: 0.3em;
     max-width: 0.3em;
