@@ -248,9 +248,10 @@ CardDeck.prototype.setTopCard = function(card) {
     card.root.style.zIndex = '999';
 };
 
-CardDeck.prototype.addButton = function(card, classname, func) {
+CardDeck.prototype.addButton = function(card, html, func) {
     var el = document.createElement('span');
-    el.className = 'card-button ' + classname;
+    el.className = 'card-button';
+    el.innerHTML = html;
     el.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -308,7 +309,7 @@ CardDeck.prototype.add = function(args) {
     }
 
     var par = this;
-    this.addButton(card, 'icon-close', function() {
+    this.addButton(card, 'X', function() {
         par.remove(card);
     });
 
