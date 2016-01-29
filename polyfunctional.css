@@ -1,0 +1,84 @@
+.card-deck {
+    position: relative;
+    padding: 0px 0px 0px 0.2em;
+    margin: 0px;
+    overflow-x: scroll;
+    min-height: 5em;
+}
+
+.card-deck-reserve {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.card-root {
+    position: absolute;
+    top: 0.1em;
+    bottom: 0.1em;
+    overflow: hidden;
+    margin: 0px;
+    padding: 0px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.card-box {
+    flex-grow: 1;
+
+    border: 1px solid #888;
+    background-color: white;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.card-titlebar {
+    background: #d8d8e0;
+    padding: 0.1em;
+    min-height: 1.2em;
+    display: flex;
+    cursor: default;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 90%;
+}
+
+.card-titletext {
+    font-family: helvetica, arial;
+    display: inline-block;
+    overflow: hidden;
+    padding-left: 0.1em;
+    flex-grow: 1;
+}
+
+.card-button {
+    font-weight: 100;
+    color: #aaa;
+    padding-left: 0.33em;
+}
+
+.card-toggled {
+    color: #484;
+}
+
+.card-button:hover {
+    color: black;
+}
+
+.card-content {
+    overflow: auto;
+    flex-grow: 1;
+}
+
+.card-sizer {
+    width: 0.3em;
+    min-width: 0.3em;
+    max-width: 0.3em;
+    cursor: ew-resize;
+}
+
