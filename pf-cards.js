@@ -1,58 +1,3 @@
-var _Drag = {
-    install: function(el, data, onstart, oncont, onend) {
-
-        _Drag.move = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            oncont && oncont(data, e);
-        };
-    
-        _Drag.done = function(e) {
-            onend && onend(data, e);
-            e.preventDefault();
-            e.stopPropagation();
-            if (el.setCapture) {
-                el.removeEventListener('mousemove', _Drag.move);
-                el.removeEventListener('mouseup', _Drag.done);
-                el.removeEventListener('losecapture', _Drag.done);
-            } else {
-                document.removeEventListener('mousemove', _Drag.move);
-                document.removeEventListener('mouseup', _Drag.done);
-                // todo: restore old cursor
-            }
-            _Drag.move = null;
-            _Drag.done = null;
-        };
-    
-        if (el.setCapture) {
-            el.setCapture(true);
-            el.addEventListener('mousemove', _Drag.move);
-            el.addEventListener('mouseup', _Drag.done);
-            el.addEventListener('losecapture', _Drag.done);
-        } else {
-            var cursor = window.getComputedStyle(el).cursor;
-            if (cursor != 'auto') {
-                // todo: lock in this cursor style
-            }
-            document.addEventListener('mousemove', _Drag.move);
-            document.addEventListener('mouseup', _Drag.done);
-        }
-    }
-};
-
-function makeDraggable(el, data, onstart, oncont, onend, selfOnly) {
-    el.addEventListener('mousedown', function(e) {
-        if (e.button != 0 || (selfOnly && e.target != el))
-            return;
-        e.stopPropagation();
-        e.preventDefault();
-        onstart && onstart(data, e);
-        _Drag.install(el, data, onstart, oncont, onend);
-    });
-}
-
-/*****************************************************************************/
-
 var _CardAnims = {
     active:   [],
     lastTime: null,
@@ -171,8 +116,12 @@ CardAnimatable.prototype.stop = function() {
 /*****************************************************************************/
 
 function CardDeck(wrapper) {
-    this.wrapper = wrapper || document.createElement('div');
+    this.outer = wrapper || document.createElement('div');
+    this.outer.classList.add('pf-card-wrapper');
+
+    this.wrapper = document.createElement('div');
     this.wrapper.classList.add('pf-card-deck');
+    this.outer.appendChild(this.wrapper);
 
     this.insertAtLeft    = true; // New cards are inserted on the left side
     this.cardLimit       = 16;   // Cards are closed to stay under this limit
@@ -245,7 +194,8 @@ CardDeck.prototype.setTopCard = function(card) {
     if (this.topCard != null)
         this.topCard.root.style.zIndex = '1';
     this.topCard = card;
-    card.root.style.zIndex = '999';
+    if (card != null)
+        card.root.style.zIndex = '999';
 };
 
 CardDeck.prototype.addButton = function(card, html, func) {
@@ -257,8 +207,8 @@ CardDeck.prototype.addButton = function(card, html, func) {
         e.stopPropagation();
         func(e.target);
     });
-    card.buttons.push(el);
-    card.titlebar.appendChild(el);
+    card.buttons.splice(0, 0, el);
+    card.titlebar.insertBefore(el, card.titletext.nextSibling);
 };
 
 CardDeck.prototype.add = function(args) {
@@ -309,8 +259,14 @@ CardDeck.prototype.add = function(args) {
     }
 
     var par = this;
-    this.addButton(card, '&#215;', function() {
+    this.addButton(card, args.closeButton || '&#215;', function(btn) {
         par.remove(card);
+    });
+    this.addButton(card, args.maximizeButton || '+', function(btn) {
+	if (par.toggleMaximize(card))
+	    btn.innerHTML = args.minimizeButton || '-';
+	else
+	    btn.innerHTML = args.maximizeButton || '+';
     });
 
     card.xAnim = new CardAnimatable(
@@ -393,6 +349,26 @@ CardDeck.prototype.remove = function(card) {
     card.oAnim.setTarget(0, this.removeDuration);
 
     this.updateOffsets(this.removeDuration);
+};
+
+CardDeck.prototype.toggleMaximize = function(card) {
+    if (card.maximized) {
+	card.maximized = false;
+	// put card.box back where it belongs
+	card.box.className = 'pf-card-box';
+	this.outer.removeChild(card.box);
+	this.outer.appendChild(this.wrapper);
+	card.root.insertBefore(card.box, card.sizer);
+    } else {
+	card.maximized = true;
+	// move card.box to fill the deck
+	this.setTopCard(null);
+	card.box.className = 'pf-card-maximized'; 
+	card.root.removeChild(card.box);
+	this.outer.removeChild(this.wrapper);
+	this.outer.appendChild(card.box);
+    }
+    return card.maximized;
 };
 
 CardDeck.prototype.sizerDragStart = function(card, e) {

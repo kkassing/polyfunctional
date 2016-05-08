@@ -1,9 +1,20 @@
-.pf-pf-card-deck {
+.pf-card-wrapper {
+    position: absolute;
+    padding: 0px;
+    margin: 0px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.pf-card-deck {
     position: relative;
     padding: 0px 0px 0px 0.2em;
     margin: 0px;
-    overflow-x: scroll;
+    overflow-x: auto;
     min-height: 5em;
+    height: 100%;
 }
 
 .pf-card-deck-reserve {
@@ -37,6 +48,15 @@
     align-items: stretch;
 }
 
+.pf-card-maximized {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 100000;
+}
+
 .pf-card-titlebar {
     background: #d8d8e0;
     padding: 0.1em;
@@ -54,12 +74,23 @@
     overflow: hidden;
     padding-left: 0.1em;
     flex-grow: 1;
+
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
 }
 
 .pf-card-button {
     font-weight: 100;
     color: #aaa;
-    padding-left: 0.33em;
+    padding-right: 0.15em;
+    padding-left: 0.15em;
+    
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
 }
 
 .pf-card-toggled {
